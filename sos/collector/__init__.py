@@ -603,7 +603,9 @@ class SoSCollector(SoSComponent):
                 try:
                     # there are no instances currently where any cluster option
                     # should contain a legitimate space.
-                    value = option.split('=')[1].split()[0]
+                    # however, some options like ocp.label or kubernetes.label
+                    # do contain equals
+                    value = '='.join(option.split('=')[1:]).split()[0]
                 except IndexError:
                     # conversion to boolean is handled during validation
                     value = 'True'
